@@ -31,8 +31,16 @@ export default function BhavyaTable(props) {
       sortedData = [...filteredData].sort((a, b) => (a[column] > b[column] ? 1 : -1));
       setSortOrder(0);
     } else if (sortOrder === 0 || sortOrder === 1) {
-      sortedData = filteredData.reverse();
-      sortOrder === 0 ? setSortOrder(1) : setSortOrder(0);
+      if(sortOrder === 0) {
+        sortedData = [...filteredData].sort((a, b) => (a[column] < b[column] ? 1 : -1));
+        setSortOrder(1);
+      } else if (sortOrder === 1) {
+        sortedData = [...filteredData].sort((a, b) => (a[column] > b[column] ? 1 : -1));
+        setSortOrder(0);
+      } else {
+        sortedData = filteredData.reverse();
+        setSortOrder(0);
+      }
     }
     setFilteredData(sortedData);
   };
@@ -128,14 +136,14 @@ export default function BhavyaTable(props) {
                   {column.name.charAt(0).toUpperCase() + column.name.slice(1)}  
                   </div>
                   <div className="row d-flex justify-content-center mt-2">
-                    <div className="col-6 p-1 text-end">
-                  <button
+                    
+                    <div className="col-12 text-end p-1 me-3">
+                    <button
                     className="btn btn-link text-light text-decoration-none p-0"
                     onClick={() => handleSort(column.name)}>
                     <i className="bi bi-arrow-down-up"></i>
                   </button>
-                    </div>
-                    <div className="col-6 text-start p-1"><button
+                      <button
                     className="btn btn-sm btn-link text-light text-decoration-none p-0"
                     data-bs-toggle="modal"
                     data-bs-target={`#filterModal_${column.name}`}>
@@ -161,7 +169,7 @@ export default function BhavyaTable(props) {
                             aria-label="Close"></button>
                         </div>
                         <div className="modal-body fw-normal">
-                          {Array.from(new Set(filteredData.map((item) => item[column.name]))).map(
+                          {Array.from(new Set(data.map((item) => item[column.name]))).map(
                             (value) => (
                               <div className="form-check my-4" key={value}>
                                 <input
@@ -182,7 +190,7 @@ export default function BhavyaTable(props) {
                           )}
                         </div>
                         <div className="modal-footer">
-                          <button type="button" className="btn btn-success" onClick={handleFilter}>
+                          <button type="button" data-bs-dismiss="modal" className="btn btn-success" onClick={handleFilter}>
                             Apply Filters
                           </button>
                           <button
