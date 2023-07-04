@@ -31,7 +31,7 @@ export default function BhavyaTable(props) {
       sortedData = [...filteredData].sort((a, b) => (a[column] > b[column] ? 1 : -1));
       setSortOrder(0);
     } else if (sortOrder === 0 || sortOrder === 1) {
-      if(sortOrder === 0) {
+      if (sortOrder === 0) {
         sortedData = [...filteredData].sort((a, b) => (a[column] < b[column] ? 1 : -1));
         setSortOrder(1);
       } else if (sortOrder === 1) {
@@ -133,19 +133,23 @@ export default function BhavyaTable(props) {
                 <th key={column.name}>
                   <div className="row d-flex justify-content-center mt-2">
                     <div className="col-12 text-end p-1 me-3">
-                      <div className="float-start ms-3"> {column.name.charAt(0).toUpperCase() + column.name.slice(1)}  </div>
-                    <button
-                    className="btn btn-link text-light text-decoration-none p-0"
-                    onClick={() => handleSort(column.name)}>
-                    <i className="bi bi-arrow-down-up"></i>
-                  </button>
+                      <div className="float-start ms-3">
+                        {" "}
+                        {column.name.charAt(0).toUpperCase() + column.name.slice(1)}{" "}
+                      </div>
                       <button
-                    className="btn btn-sm btn-link text-light text-decoration-none p-0"
-                    data-bs-toggle="modal"
-                    data-bs-target={`#filterModal_${column.name}`}>
-                    <i class="bi bi-funnel-fill"></i>
-                  </button></div>
-                  </div>  
+                        className="btn btn-link text-info text-decoration-none p-0"
+                        onClick={() => handleSort(column.name)}>
+                        <i className="bi bi-arrow-down-up"></i>
+                      </button>
+                      <button
+                        className="btn btn-sm btn-link text-warning text-decoration-none p-0"
+                        data-bs-toggle="modal"
+                        data-bs-target={`#filterModal_${column.name}`}>
+                        <i class="bi bi-funnel-fill"></i>
+                      </button>
+                    </div>
+                  </div>
                   <div
                     className="modal fade"
                     id={`filterModal_${column.name}`}
@@ -155,7 +159,9 @@ export default function BhavyaTable(props) {
                     <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                       <div className="modal-content">
                         <div className="modal-header">
-                          <h5 className="modal-title text-dark" id={`filterModalLabel_${column.name}`}>
+                          <h5
+                            className="modal-title text-dark"
+                            id={`filterModalLabel_${column.name}`}>
                             {column.name.charAt(0).toUpperCase() + column.name.slice(1)} Filters
                           </h5>
                           <button
@@ -186,13 +192,14 @@ export default function BhavyaTable(props) {
                           )}
                         </div>
                         <div className="modal-footer">
-                          <button type="button" data-bs-dismiss="modal" className="btn btn-success" onClick={handleFilter}>
-                            Apply Filters
-                          </button>
                           <button
                             type="button"
-                            className="btn btn-danger"
-                            data-bs-dismiss="modal">
+                            data-bs-dismiss="modal"
+                            className="btn btn-success"
+                            onClick={handleFilter}>
+                            Apply Filters
+                          </button>
+                          <button type="button" className="btn btn-danger" data-bs-dismiss="modal">
                             Close
                           </button>
                         </div>
@@ -203,7 +210,6 @@ export default function BhavyaTable(props) {
               ) : null
             )}
           </tr>
-          
         </thead>
         <tbody>
           {filteredData.map((item, index) => (
