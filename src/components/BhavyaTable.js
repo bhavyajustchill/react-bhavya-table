@@ -132,7 +132,6 @@ export default function BhavyaTable(props) {
               column.visible ? (
                 <th key={column.name}>
                   <div className="row d-flex justify-content-center mt-2">
-                    
                     <div className="col-12 text-end p-1 me-3">
                       <div className="float-start ms-3"> {column.name.charAt(0).toUpperCase() + column.name.slice(1)}  </div>
                     <button

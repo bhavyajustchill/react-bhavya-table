@@ -45,7 +45,7 @@ export default function CheckboxDropdown(props) {
                   checked={option.selected}
                   onChange={() => handleOptionClick(option.name)}
                 />
-                {option.name}
+                {option.name.charAt(0).toUpperCase() + option.name.slice(1)}
               </label>
             </li>
           ))}
