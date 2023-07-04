@@ -7,7 +7,7 @@ function App() {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get("https://jsonplaceholder.typicode.com/todos")
+      .get("https://jsonplaceholder.typicode.com/albums")
       .then((response) => {
         setData(response.data);
       })
