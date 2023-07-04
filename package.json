@@ -10,6 +10,7 @@
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.29",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-csv": "^2.2.2",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",

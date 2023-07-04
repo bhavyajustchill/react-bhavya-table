@@ -17,19 +17,26 @@ export default function BhavyaTable(props) {
   const [selectedFilters, setSelectedFilters] = useState({});
 
   if (colData.length <= 0) {
+    let tempColData = [];
     columns.forEach((column) => {
-      colData.push({
+      tempColData.push({
         name: column.name,
         selected: true,
       });
     });
+    setColData(tempColData);
   }
 
   const handleSort = (column) => {
     let sortedData = null;
     if (sortOrder === -1) {
       sortedData = [...filteredData].sort((a, b) => (a[column] > b[column] ? 1 : -1));
-      setSortOrder(0);
+      if (sortedData[column] === filteredData[column]) {
+        sortedData = sortedData.reverse();
+        setSortOrder(1);
+      } else {
+        setSortOrder(0);
+      }
     } else if (sortOrder === 0 || sortOrder === 1) {
       if (sortOrder === 0) {
         sortedData = [...filteredData].sort((a, b) => (a[column] < b[column] ? 1 : -1));
@@ -98,6 +105,31 @@ export default function BhavyaTable(props) {
     doc.save("table.pdf");
   };
 
+  const handleDragStart = (e, columnName) => {
+    e.dataTransfer.setData("text/plain", columnName);
+  };
+
+  const handleDrop = (e, targetColumnName) => {
+    const sourceColumnName = e.dataTransfer.getData("text/plain");
+    const updatedColumns = [...columns];
+
+    const sourceColumnIndex = updatedColumns.findIndex(
+      (column) => column.name === sourceColumnName
+    );
+    const targetColumnIndex = updatedColumns.findIndex(
+      (column) => column.name === targetColumnName
+    );
+
+    const [sourceColumn] = updatedColumns.splice(sourceColumnIndex, 1);
+    updatedColumns.splice(targetColumnIndex, 0, sourceColumn);
+
+    setColumns(updatedColumns);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div>
       <div className="container d-grid">
@@ -109,17 +141,17 @@ export default function BhavyaTable(props) {
           </div>
           <div className="d-flex justify-content-end my-3">
             <button className="btn btn-primary mx-1" onClick={() => window.print()}>
-              Print
+              Print&nbsp;&nbsp;<i class="bi bi-printer-fill"></i>
             </button>
             <button className="btn btn-danger mx-1" onClick={handleExportPDF}>
-              Export PDF
+              Export PDF&nbsp;&nbsp;<i class="bi bi-file-earmark-pdf-fill"></i>
             </button>
             <button className="btn btn-success mx-1">
               <CSVLink
                 className="text-light text-decoration-none"
                 data={handleExportCSV()}
                 filename="table.csv">
-                Export CSV
+                Export CSV&nbsp;&nbsp;<i class="bi bi-filetype-csv"></i>
               </CSVLink>
             </button>
           </div>
@@ -128,25 +160,29 @@ export default function BhavyaTable(props) {
       <table className="table table-striped">
         <thead className="table-dark">
           <tr>
-            {columns.map((column) =>
+            {columns.map((column, index) =>
               column.visible ? (
-                <th key={column.name}>
+                <th
+                  key={column.name}
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, column.name)}
+                  onDragOver={handleDragOver}
+                  onDrop={(e) => handleDrop(e, column.name)}>
                   <div className="row d-flex justify-content-center mt-2">
                     <div className="col-12 text-end p-1 me-3">
                       <div className="float-start ms-3">
-                        {" "}
-                        {column.name.charAt(0).toUpperCase() + column.name.slice(1)}{" "}
+                        {column.name.charAt(0).toUpperCase() + column.name.slice(1)}
                       </div>
                       <button
-                        className="btn btn-link text-info text-decoration-none p-0"
+                        className="btn btn-link text-info text-decoration-none p-1"
                         onClick={() => handleSort(column.name)}>
                         <i className="bi bi-arrow-down-up"></i>
                       </button>
                       <button
-                        className="btn btn-sm btn-link text-warning text-decoration-none p-0"
+                        className="btn btn-sm btn-link text-warning text-decoration-none p-1"
                         data-bs-toggle="modal"
                         data-bs-target={`#filterModal_${column.name}`}>
-                        <i class="bi bi-funnel-fill"></i>
+                        <i className="bi bi-funnel-fill"></i>
                       </button>
                     </div>
                   </div>
