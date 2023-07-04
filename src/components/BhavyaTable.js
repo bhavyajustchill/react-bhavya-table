@@ -122,28 +122,29 @@ export default function BhavyaTable(props) {
           <tr>
             {columns.map((column) =>
               column.visible ? (
+                <>
                 <th key={column.name}>
-                  {column.name.charAt(0).toUpperCase() + column.name.slice(1)}
+                  <div className="row container">
+                  {column.name.charAt(0).toUpperCase() + column.name.slice(1)}  
+                  </div>
+                  <div className="row d-flex justify-content-center">
+                    <div className="col-6">
                   <button
                     className="mx-1 btn btn-link text-light text-decoration-none p-0"
                     onClick={() => handleSort(column.name)}>
                     <i className="bi bi-arrow-down-up"></i>
                   </button>
-                </th>
-              ) : null
-            )}
-          </tr>
-          {columns.map((column) =>
-            column.visible ? (
-              <tr key={column.name}>
-                <th colSpan="2">{column.name.charAt(0).toUpperCase() + column.name.slice(1)}</th>
-                <td>
-                  <button
-                    className="btn btn-sm btn-primary"
+                    </div>
+                    <div className="col-6"><button
+                    className="btn btn-sm btn-link text-light text-decoration-none p-0"
                     data-bs-toggle="modal"
                     data-bs-target={`#filterModal_${column.name}`}>
-                    Filter
-                  </button>
+                    <i class="bi bi-funnel-fill"></i>
+                  </button></div>
+                  </div>
+
+                  
+                  
                   <div
                     className="modal fade"
                     id={`filterModal_${column.name}`}
@@ -162,7 +163,7 @@ export default function BhavyaTable(props) {
                             data-bs-dismiss="modal"
                             aria-label="Close"></button>
                         </div>
-                        <div className="modal-body">
+                        <div className="modal-body fw-normal">
                           {Array.from(new Set(filteredData.map((item) => item[column.name]))).map(
                             (value) => (
                               <div className="form-check" key={value}>
@@ -197,10 +198,12 @@ export default function BhavyaTable(props) {
                       </div>
                     </div>
                   </div>
-                </td>
-              </tr>
-            ) : null
-          )}
+                </th>
+                </>
+              ) : null
+            )}
+          </tr>
+          
         </thead>
         <tbody>
           {filteredData.map((item, index) => (
