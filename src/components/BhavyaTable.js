@@ -130,14 +130,11 @@ export default function BhavyaTable(props) {
           <tr>
             {columns.map((column) =>
               column.visible ? (
-                <>
                 <th key={column.name}>
-                  <div className="row container">
-                  {column.name.charAt(0).toUpperCase() + column.name.slice(1)}  
-                  </div>
                   <div className="row d-flex justify-content-center mt-2">
                     
                     <div className="col-12 text-end p-1 me-3">
+                      <div className="float-start ms-3"> {column.name.charAt(0).toUpperCase() + column.name.slice(1)}  </div>
                     <button
                     className="btn btn-link text-light text-decoration-none p-0"
                     onClick={() => handleSort(column.name)}>
@@ -204,7 +201,6 @@ export default function BhavyaTable(props) {
                     </div>
                   </div>
                 </th>
-                </>
               ) : null
             )}
           </tr>
