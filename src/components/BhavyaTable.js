@@ -127,24 +127,21 @@ export default function BhavyaTable(props) {
                   <div className="row container">
                   {column.name.charAt(0).toUpperCase() + column.name.slice(1)}  
                   </div>
-                  <div className="row d-flex justify-content-center">
-                    <div className="col-6">
+                  <div className="row d-flex justify-content-center mt-2">
+                    <div className="col-6 p-1 text-end">
                   <button
-                    className="mx-1 btn btn-link text-light text-decoration-none p-0"
+                    className="btn btn-link text-light text-decoration-none p-0"
                     onClick={() => handleSort(column.name)}>
                     <i className="bi bi-arrow-down-up"></i>
                   </button>
                     </div>
-                    <div className="col-6"><button
+                    <div className="col-6 text-start p-1"><button
                     className="btn btn-sm btn-link text-light text-decoration-none p-0"
                     data-bs-toggle="modal"
                     data-bs-target={`#filterModal_${column.name}`}>
                     <i class="bi bi-funnel-fill"></i>
                   </button></div>
-                  </div>
-
-                  
-                  
+                  </div>  
                   <div
                     className="modal fade"
                     id={`filterModal_${column.name}`}
@@ -154,7 +151,7 @@ export default function BhavyaTable(props) {
                     <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                       <div className="modal-content">
                         <div className="modal-header">
-                          <h5 className="modal-title" id={`filterModalLabel_${column.name}`}>
+                          <h5 className="modal-title text-dark" id={`filterModalLabel_${column.name}`}>
                             {column.name.charAt(0).toUpperCase() + column.name.slice(1)} Filters
                           </h5>
                           <button
@@ -166,7 +163,7 @@ export default function BhavyaTable(props) {
                         <div className="modal-body fw-normal">
                           {Array.from(new Set(filteredData.map((item) => item[column.name]))).map(
                             (value) => (
-                              <div className="form-check" key={value}>
+                              <div className="form-check my-4" key={value}>
                                 <input
                                   className="form-check-input"
                                   type="checkbox"
@@ -185,12 +182,12 @@ export default function BhavyaTable(props) {
                           )}
                         </div>
                         <div className="modal-footer">
-                          <button type="button" className="btn btn-primary" onClick={handleFilter}>
+                          <button type="button" className="btn btn-success" onClick={handleFilter}>
                             Apply Filters
                           </button>
                           <button
                             type="button"
-                            className="btn btn-secondary"
+                            className="btn btn-danger"
                             data-bs-dismiss="modal">
                             Close
                           </button>
