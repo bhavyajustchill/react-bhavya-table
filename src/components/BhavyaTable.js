@@ -3,6 +3,9 @@ import { CSVLink } from "react-csv";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import CheckboxDropdown from "./CheckboxDropdown";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/js/bootstrap.bundle.js";
 
 export default function BhavyaTable(props) {
   const data = props.data;
@@ -141,17 +144,17 @@ export default function BhavyaTable(props) {
           </div>
           <div className="d-flex justify-content-end my-3">
             <button className="btn btn-primary mx-1" onClick={() => window.print()}>
-              Print&nbsp;&nbsp;<i class="bi bi-printer-fill"></i>
+              Print&nbsp;&nbsp;<i className="bi bi-printer-fill"></i>
             </button>
             <button className="btn btn-danger mx-1" onClick={handleExportPDF}>
-              Export PDF&nbsp;&nbsp;<i class="bi bi-file-earmark-pdf-fill"></i>
+              Export PDF&nbsp;&nbsp;<i className="bi bi-file-earmark-pdf-fill"></i>
             </button>
             <button className="btn btn-success mx-1">
               <CSVLink
                 className="text-light text-decoration-none"
                 data={handleExportCSV()}
                 filename="table.csv">
-                Export CSV&nbsp;&nbsp;<i class="bi bi-filetype-csv"></i>
+                Export CSV&nbsp;&nbsp;<i className="bi bi-filetype-csv"></i>
               </CSVLink>
             </button>
           </div>
