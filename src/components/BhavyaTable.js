@@ -18,6 +18,7 @@ export default function BhavyaTable(props) {
   const [filteredData, setFilteredData] = useState(data);
   const [sortOrder, setSortOrder] = useState(-1);
   const [selectedFilters, setSelectedFilters] = useState({});
+  const [searchValue, setSearchValue] = useState("");
 
   if (colData.length <= 0) {
     let tempColData = [];
@@ -73,7 +74,38 @@ export default function BhavyaTable(props) {
         return filters.length === 0 || filters.includes(item[column]);
       });
     });
+
     setFilteredData(filteredData);
+  };
+
+  const handleSearch = () => {
+    const filteredData = data.filter((item) => {
+      return Object.entries(selectedFilters).every(([column, filters]) => {
+        return filters.length === 0 || filters.includes(item[column]);
+      });
+    });
+
+    const searchInput = document.getElementById("search-input");
+
+    if (searchInput.value === "") {
+      setFilteredData(filteredData);
+    } else {
+      const searchFilteredData = filteredData.filter((item) => {
+        return columns
+          .filter((column) => column.visible)
+          .some((column) => {
+            const columnValue = item[column.name];
+            return (
+              columnValue &&
+              columnValue
+                .toString()
+                .toLowerCase()
+                .includes(searchInput.value.toString().toLowerCase())
+            );
+          });
+      });
+      setFilteredData(searchFilteredData);
+    }
   };
 
   const handleColumnToggle = (columnName) => {
@@ -141,6 +173,27 @@ export default function BhavyaTable(props) {
             <CheckboxDropdown
               colData={colData}
               handleColumnToggle={handleColumnToggle}></CheckboxDropdown>
+          </div>
+          <div className="my-3 d-table-cell justify-content-center">
+            <div className="input-group">
+              <span className="input-group-text" id="basic-addon1">
+                <i className="bi bi-search"></i>
+              </span>
+              <input
+                id="search-input"
+                type="text"
+                value={searchValue}
+                onChange={(event) => {
+                  setSearchValue(event.target.value);
+                  handleSearch();
+                }}
+                className="form-control"
+                placeholder="Search..."
+              />
+              {/* <button className="btn btn-secondary" type="button" id="button-addon2">
+                Search
+              </button> */}
+            </div>
           </div>
           <div className="d-flex justify-content-end my-3">
             <button className="btn btn-primary mx-1" onClick={() => window.print()}>

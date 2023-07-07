@@ -7,7 +7,7 @@ export default function CheckboxDropdown(props) {
 
   useEffect(() => {
     setOptions(props.colData);
-  }, []);
+  }, [props.colData]);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -24,7 +24,6 @@ export default function CheckboxDropdown(props) {
       return option;
     });
     props.handleColumnToggle(optionName);
-    console.log(updatedOptions);
     setOptions(updatedOptions);
   };
 
