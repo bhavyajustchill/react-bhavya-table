@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import BhavyaTable from "./components/BhavyaTable";
 import axios from "axios";
-import { type } from "@testing-library/user-event/dist/type";
 
 function App() {
   const [data, setData] = useState([]);
@@ -25,7 +24,7 @@ function App() {
         {isDataFetched === true ? (
           <BhavyaTable data={data}></BhavyaTable>
         ) : (
-          <h1>No Data Available</h1>
+          <h1>Loading Data...</h1>
         )}
       </div>
     </>
