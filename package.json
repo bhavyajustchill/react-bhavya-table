@@ -46,12 +46,13 @@
     "react": "^18.2.0 || ^19.0.0",
     "react-dom": "^18.2.0 || ^19.0.0"
   },
-  "main": "dist/bhavya-table.cjs.js",
-  "module": "dist/bhavya-table.es.js",
+  "main": "dist/bhavya-table.cjs",
+  "module": "dist/bhavya-table.mjs",
   "exports": {
     ".": {
-      "import": "./dist/bhavya-table.es.js",
-      "require": "./dist/bhavya-table.cjs.js"
+      "import": "./dist/bhavya-table.mjs",
+      "require": "./dist/bhavya-table.cjs",
+      "default": "./dist/bhavya-table.mjs"
     },
     "./style.css": "./dist/bhavya-table.css"
   },
@@ -61,5 +62,6 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^6.0.1",
     "vite": "^8.0.8"
-  }
+  },
+  "type": "module"
 }
