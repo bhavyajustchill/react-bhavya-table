@@ -14,7 +14,19 @@ export default defineConfig({
       fileName: (format) => `bhavya-table.${format === 'es' ? 'mjs' : 'cjs'}`
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: (id) => {
+        // Externalize all dependencies to prevent Rollup from injecting CJS __require wrappers
+        if (
+          id.startsWith('react') || 
+          id === 'jspdf' || 
+          id === 'jspdf-autotable' || 
+          id === 'axios' || 
+          id.startsWith('bootstrap')
+        ) {
+          return true;
+        }
+        return false;
+      },
       output: {
         globals: {
           react: 'React',
