@@ -10,6 +10,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/components/index.js'),
       name: 'BhavyaTable',
+      formats: ['es', 'cjs'],
       fileName: (format) => `bhavya-table.${format}.js`
     },
     rollupOptions: {
