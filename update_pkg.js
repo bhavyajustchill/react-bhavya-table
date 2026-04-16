@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 
 const pkgStr = fs.readFileSync('package.json', 'utf8');
 const pkg = JSON.parse(pkgStr);
@@ -17,17 +17,22 @@ if (pkg.dependencies) {
   }
 }
 
+// React 19 default peer deps
+pkg.peerDependencies['react'] = "^18.2.0 || ^19.0.0";
+pkg.peerDependencies['react-dom'] = "^18.2.0 || ^19.0.0";
+
 if (!pkg.scripts) pkg.scripts = {};
 pkg.scripts['build:lib'] = 'vite build';
 
-pkg.main = 'dist/bhavya-table.umd.js';
-pkg.module = 'dist/bhavya-table.es.js';
+pkg.main = 'dist/bhavya-table.cjs';
+pkg.module = 'dist/bhavya-table.mjs';
 pkg.exports = {
   ".": {
-    "import": "./dist/bhavya-table.es.js",
-    "require": "./dist/bhavya-table.umd.js"
+    "import": "./dist/bhavya-table.mjs",
+    "require": "./dist/bhavya-table.cjs",
+    "default": "./dist/bhavya-table.mjs"
   },
-  "./style.css": "./dist/style.css"
+  "./style.css": "./dist/bhavya-table.css"
 };
 pkg.files = ["dist"];
 
