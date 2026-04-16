@@ -1,70 +1,72 @@
-# Getting Started with Create React App
+# React Bhavya Table 🚀
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A highly interactive, feature-rich, and fully responsive data table component for React.
 
-## Available Scripts
+## ✨ Features
 
-In the project directory, you can run:
+- **Dynamic Columns:** Automatically generates columns based on your data structure.
+- **Sorting & Filtering:** Click on column headers to sort data (Ascending/Descending), or use the built-in modal to apply specific value filters.
+- **Global Search:** Blazing fast global search across all visible columns.
+- **Drag & Drop:** Reorder columns effortlessly using native HTML5 drag and drop.
+- **Column Toggling:** Show or hide specific columns dynamically via a dropdown menu.
+- **Export Capabilities:** 
+  - Export to CSV (powered by `react-csv`)
+  - Export to PDF (powered by `jspdf`)
+  - Print exactly what you see.
+- **Responsive Design:** Built with Bootstrap for a robust, mobile-friendly table layout out of the box.
 
-### `npm start`
+## 📦 Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This package is compatible with Create React App, Vite, and Next.js.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm install bhavya-table
+```
 
-### `npm test`
+*Note: This package requires `react` and `react-dom` as a peer dependency.*
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🚀 Usage
 
-### `npm run build`
+Using the table is as simple as passing an array of objects to the `data` prop.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```jsx
+import React from 'react';
+import { BhavyaTable } from 'bhavya-table';
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+// VERY IMPORTANT: Import the CSS for styles to apply!
+import 'bhavya-table/style.css';
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+const App = () => {
+  const tableData = [
+    { id: 1, name: 'John Doe', age: 28, role: 'Developer' },
+    { id: 2, name: 'Jane Smith', age: 34, role: 'Designer' },
+    { id: 3, name: 'Sam Johnson', age: 41, role: 'Manager' },
+  ];
 
-### `npm run eject`
+  return (
+    <div style={{ padding: '20px' }}>
+      <h2>Employee Directory</h2>
+      {/* Pass your array of objects to the data prop */}
+      <BhavyaTable data={tableData} />
+    </div>
+  );
+};
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+export default App;
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🛠️ API
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Props
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+| Prop | Type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| `data` | `Array<Object>` | **Yes** | An array of JSON objects. The keys of the object will automatically be interpreted as the column headers. |
 
-## Learn More
+## ⚙️ Framework Specific Notes
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Next.js (App Router)
+If you are using the Next.js App Router (`app/` directory), importing global CSS (`import 'bhavya-table/style.css'`) directly inside a component may cause Next to throw a warning. It is recommended to import the `style.css` file inside your global `layout.js` or `layout.tsx` file for perfect compatibility, and then use the `<BhavyaTable>` component anywhere else!
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📄 License
+MIT © BhavyaJustChill

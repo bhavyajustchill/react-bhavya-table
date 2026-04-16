@@ -1,0 +1,7 @@
+src/
+public/
+vite.config.js
+.npmignore
+.gitignore
+.env
+update_pkg.js
